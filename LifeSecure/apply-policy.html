@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply Policy</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(rgba(10, 61, 98, 0.85), rgba(10, 61, 98, 0.85)),
+        url('images/cssbgtopsection.jpeg');
+      background-size: cover;
+      color: white;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 35px 30px;
+      border-radius: 15px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-size: 15px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #27ae60;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #2ecc71;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .checkbox-label input {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .checkbox-label span {
+      line-height: 1.4;
+    }
+
+    .info {
+      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .info p {
+      margin: 6px 0;
+    }
+
+    .info ul {
+      margin: 6px 0 0 20px;
+      padding: 0;
+    }
+
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Apply Policy</h2>
+
+    <div class="info" id="plan-info"></div>
+
+    <form id="apply-form" action="applyPolicy" method="POST">
+      <input type="hidden" id="hidden-policyType" name="policyType">
+      <input type="hidden" id="hidden-premium" name="premium">
+      <input type="hidden" id="hidden-details" name="details">
+      <label>Full Name</label>
+      <input type="text" name="name" placeholder="Enter your name" required>
+
+      <label>Age</label>
+      <input type="number" name="age" placeholder="Enter age" required>
+
+      <label>Mobile Number</label>
+      <input type="tel" name="mobile" placeholder="Enter mobile number" required>
+
+      <label>Nominee Name</label>
+      <input type="text" name="nominee" placeholder="Enter nominee name" required>
+
+      <label class="checkbox-label">
+        <input type="checkbox" required>
+        <span>I confirm the above details and accept the benefits of this policy</span>
+      </label>
+
+      <button type="submit" onclick="return prepareSubmission();">Confirm & Apply</button>
+    </form>
+
+    <a href="new-policy-list.html" class="back-btn">⬅ Back to Policies</a>
+  </div>
+
+  <script>
+    // Plan details
+    const plans = {
+      life: { name: "Life Cover Plan", premium: 500, coverage: "₹5,00,000", benefits: ["Family financial security", "Tax benefits under 80C", "Flexible policy term", "Loan facility available"] },
+      health: { name: "Health Insurance", premium: 800, coverage: "₹3,00,000", benefits: ["Cashless hospitalization", "Free health checkups", "No claim bonus", "Daycare procedures covered"] },
+      term: { name: "Term Plan", premium: 400, coverage: "₹10,00,000", benefits: ["Low premium", "High coverage", "Tax benefits"] },
+      child: { name: "Child Future Plan", premium: 600, coverage: "₹4,00,000", benefits: ["Education fund", "Marriage support", "Premium waiver"] },
+      accidental: { name: "Accidental Insurance", premium: 300, coverage: "₹7,00,000", benefits: ["Death benefit", "Disability coverage", "Hospital support"] },
+      senior: { name: "Senior Citizen Plan", premium: 900, coverage: "₹2,50,000", benefits: ["Cashless hospitalization", "Annual health checkups", "24×7 support"] }
+    };
+
+    // Get plan key from URL
+    const params = new URLSearchParams(window.location.search);
+    const planKey = params.get("plan") || "life";
+    const plan = plans[planKey];
+
+    // Show plan info
+    document.getElementById("plan-info").innerHTML = `
+<p><b>Plan:</b> ${plan.name}</p>
+<p><b>Monthly Premium:</b> ₹${plan.premium}/month</p>
+<p><b>Coverage:</b> ${plan.coverage}</p>
+<p><b>Benefits:</b></p>
+<ul>${plan.benefits.map(b => `<li>${b}</li>`).join("")}</ul>
+`;
+
+    // Populate hidden fields before submit
+    function prepareSubmission() {
+      const name = document.querySelector('input[name="name"]').value;
+      const age = document.querySelector('input[name="age"]').value;
+      const mobile = document.querySelector('input[name="mobile"]').value;
+      const nominee = document.querySelector('input[name="nominee"]').value;
+
+      const details = `Name: ${name}, Age: ${age}, Mobile: ${mobile}, Nominee: ${nominee}`;
+
+      document.getElementById("hidden-policyType").value = plan.name;
+      document.getElementById("hidden-premium").value = plan.premium;
+      document.getElementById("hidden-details").value = details;
+
+      // The form will natively submit to action="applyPolicy" immediately after this returns
+      return true;
+    }
+  </script>
+</body>
+
+</html>

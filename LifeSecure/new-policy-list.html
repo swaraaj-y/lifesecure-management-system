@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Policies</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(rgba(10, 61, 98, 0.85), rgba(10, 61, 98, 0.85)),
+        url('cssbgtopsection.jpeg');
+      background-size: cover;
+      color: white;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 35px;
+      font-size: 28px;
+    }
+
+    /* 2 COLUMN GRID */
+    .policy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 35px;
+    }
+
+    /* BIGGER CARD */
+    .policy-card {
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(10px);
+      padding: 35px;
+      border-radius: 18px;
+      text-align: left;
+      transition: 0.3s;
+      min-height: 230px;
+    }
+
+    .policy-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .policy-card h3 {
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 22px;
+    }
+
+    .policy-card p {
+      font-size: 15px;
+      margin: 8px 0;
+    }
+
+    /* BUTTONS */
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .apply-btn,
+    .benefit-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      text-decoration: none;
+      color: white;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .apply-btn {
+      background: #27ae60;
+    }
+
+    .apply-btn:hover {
+      background: #2ecc71;
+    }
+
+    .benefit-btn {
+      background: #2980b9;
+    }
+
+    .benefit-btn:hover {
+      background: #3498db;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 35px;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>📋 Available Policies</h2>
+
+    <div class="policy-grid">
+
+      <div class="policy-card">
+        <h3>Life Cover Plan</h3>
+        <p><b>Premium:</b> ₹500/month</p>
+        <p><b>Coverage:</b> ₹5,00,000</p>
+        <p><b>Eligibility:</b> Age 18–60</p>
+        <div class="button-group">
+          <a href="apply-policy.html?plan=life&r=1" class="apply-btn">Apply</a>
+          <a href="life-cover-benefit.html" class="benefit-btn">Benefits</a>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <h3>Health Insurance</h3>
+        <p><b>Premium:</b> ₹800/month</p>
+        <p><b>Coverage:</b> ₹3,00,000</p>
+        <p><b>Eligibility:</b> Age 5–65</p>
+        <div class="button-group">
+          <a href="apply-policy.html?plan=health&r=1" class="apply-btn">Apply</a>
+          <a href="health-insurance-benefit.html" class="benefit-btn">Benefits</a>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <h3>Term Plan</h3>
+        <p><b>Premium:</b> ₹400/month</p>
+        <p><b>Coverage:</b> ₹10,00,000</p>
+        <p><b>Eligibility:</b> Age 18–55</p>
+        <div class="button-group">
+          <a href="apply-policy.html?plan=term&r=1" class="apply-btn">Apply</a>
+          <a href="term-plan-benefit.html" class="benefit-btn">Benefits</a>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <h3>Child Future Plan</h3>
+        <p><b>Premium:</b> ₹600/month</p>
+        <p><b>Coverage:</b> ₹4,00,000</p>
+        <p><b>Eligibility:</b> Parents age 21–50</p>
+        <div class="button-group">
+          <a href="apply-policy.html?plan=child&r=1" class="apply-btn">Apply</a>
+          <a href="child-future-benefit.html" class="benefit-btn">Benefits</a>
+        </div>
+      </div>
+
+
+      <div class="policy-card">
+        <h3>Accidental Insurance</h3>
+        <p><b>Premium:</b> ₹300/month</p>
+        <p><b>Coverage:</b> ₹7,00,000</p>
+        <p><b>Eligibility:</b> Age 18–65</p>
+        <div class="button-group">
+          <a href="apply-policy.html?plan=accidental&r=1" class="apply-btn">Apply</a>
+          <a href="accidental-insurance-benefit.html" class="benefit-btn">Benefits</a>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <h3>Senior Citizen Plan</h3>
+        <p><b>Premium:</b> ₹900/month</p>
+        <p><b>Coverage:</b> ₹2,50,000</p>
+        <p><b>Eligibility:</b> Age 60–80</p>
+        <div class="button-group">
+          <a href="apply-policy.html?plan=senior&r=1" class="apply-btn">Apply</a>
+          <a href="senior-citizen-benefit.html" class="benefit-btn">Benefits</a>
+        </div>
+      </div>
+
+    </div>
+
+    <a href="customer-dashboard.html" class="back-btn">⬅ Back to Dashboard</a>
+  </div>
+
+</body>
+
+</html>

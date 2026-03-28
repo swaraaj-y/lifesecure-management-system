@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>View Policies</title>
+
+<style>
+body {
+  font-family: "Segoe UI", sans-serif;
+  margin:0;
+  background: linear-gradient(rgba(10,61,98,0.85), rgba(10,61,98,0.85)),
+  url('cssbgtopsection.jpeg');
+  background-size: cover;
+  color: white;
+  text-align: center;
+}
+
+.container {
+  margin-top: 60px;
+}
+
+.table-box {
+  margin: auto;
+  width: 85%;
+  max-width: 900px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  padding: 25px;
+  border-radius: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
+  font-size: 16px;
+}
+
+th {
+  font-size: 18px;
+  padding: 15px;
+}
+
+td {
+  padding: 14px;
+}
+
+th, td {
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+
+.back-btn {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: rgba(255,255,255,0.35);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>📄 Your Policies</h2>
+
+  <div class="table-box">
+    <table>
+      <tr>
+        <th>Policy No</th>
+        <th>Type</th>
+        <th>Premium</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <td>101</td>
+        <td>Life Cover</td>
+        <td>₹500/month</td>
+        <td>Active</td>
+      </tr>
+    </table>
+  </div>
+
+  <a href="customer-dashboard.html" class="back-btn">⬅ Back to Dashboard</a>
+</div>
+
+</body>
+</html>

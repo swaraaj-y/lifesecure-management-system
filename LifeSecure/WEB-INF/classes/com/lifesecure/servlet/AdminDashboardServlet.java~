@@ -1,0 +1,83 @@
+package com.lifesecure.servlet;
+
+import com.lifesecure.util.DBConnection;
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.sql.*;
+
+public class AdminDashboardServlet extends HttpServlet{
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        HttpSession session = request.getSession(false);
+
+        if (session == null || session.getAttribute("agentId") == null) {
+            response.sendRedirect("agent-login.html");
+            return;
+        }
+
+        int agentId = (int) session.getAttribute("agentId");
+
+        out.println("<html><head><title>Agent Dashboard</title>");
+        out.println("<style>");
+        out.println("body{font-family:sans-serif;background:#0f172a;color:white;text-align:center;padding:40px;}");
+        out.println("table{width:80%;margin:auto;border-collapse:collapse;background:white;color:black;}");
+        out.println("th,td{padding:10px;border:1px solid #ddd;}");
+        out.println("th{background:#3b82f6;color:white;}");
+        out.println("button{padding:6px 12px;background:#10b981;border:none;color:white;border-radius:5px;cursor:pointer;}");
+        out.println("</style>");
+        out.println("</head><body>");
+
+        out.println("<h2>Agent Policy Review</h2>");
+
+        out.println("<table>");
+        out.println("<tr><th>Policy No</th><th>Customer</th><th>Policy Type</th><th>Status</th><th>Action</th></tr>");
+
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            String sql =
+                    "SELECT p.policy_no,p.policy_type,p.status,c.name " +
+                    "FROM policies p JOIN customers c ON p.customer_id=c.id " +
+                    "WHERE p.agent_id=? AND p.status='Pending'";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, agentId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                int policyNo = rs.getInt("policy_no");
+
+                out.println("<tr>");
+                out.println("<td>" + policyNo + "</td>");
+                out.println("<td>" + rs.getString("name") + "</td>");
+                out.println("<td>" + rs.getString("policy_type") + "</td>");
+                out.println("<td>" + rs.getString("status") + "</td>");
+
+                out.println("<td>");
+
+                out.println("<form action='agentSendApproval' method='post'>");
+                out.println("<input type='hidden' name='policyId' value='" + policyNo + "'>");
+                out.println("<button type='submit'>Send To Admin</button>");
+                out.println("</form>");
+
+                out.println("</td>");
+                out.println("</tr>");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        out.println("</table>");
+        out.println("</body></html>");
+    }
+}

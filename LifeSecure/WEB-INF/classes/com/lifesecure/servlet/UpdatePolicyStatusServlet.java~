@@ -1,0 +1,64 @@
+package com.lifesecure.servlet;
+
+import com.lifesecure.util.DBConnection;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class UpdatePolicyStatusServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+
+        // Check if agent or admin is logged in
+        boolean isAgent = (session != null && session.getAttribute("agentId") != null);
+        boolean isAdmin = (session != null && session.getAttribute("adminUser") != null);
+
+        if (!isAgent && !isAdmin) {
+            response.sendRedirect("index.html"); // redirect if not logged in
+            return;
+        }
+
+        int policyId = Integer.parseInt(request.getParameter("policyId"));
+        String action = request.getParameter("action"); // accept / reject / approve / reject
+
+        String newStatus = "";
+
+        if (isAgent) {
+            // Agent actions
+            if (action.equalsIgnoreCase("accept")) {
+                newStatus = "Pending Admin Approval"; // send to admin
+            } else if (action.equalsIgnoreCase("reject")) {
+                newStatus = "Rejected by Agent";
+            }
+        } else if (isAdmin) {
+            // Admin actions
+            if (action.equalsIgnoreCase("approve")) {
+                newStatus = "Approved / Pending Payment";
+            } else if (action.equalsIgnoreCase("reject")) {
+                newStatus = "Rejected by Admin";
+            }
+        }
+
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "UPDATE policies SET status=? WHERE policy_no=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, newStatus);
+            ps.setInt(2, policyId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Redirect back depending on who performed the action
+        if (isAgent) {
+            response.sendRedirect("agentDashboard");
+        } else {
+            response.sendRedirect("adminDashboard");
+        }
+    }
+}

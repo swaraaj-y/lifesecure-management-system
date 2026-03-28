@@ -1,0 +1,49 @@
+package com.lifesecure.servlet;
+
+import com.lifesecure.util.DBConnection;
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.sql.*;
+
+public class PaymentServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("customerId") == null) {
+            response.sendRedirect("customer-login.html");
+            return;
+        }
+
+        int customerId = (int) session.getAttribute("customerId");
+        int policyNo = Integer.parseInt(request.getParameter("policyNo"));
+        double amount = Double.parseDouble(request.getParameter("amount"));
+
+        try (Connection conn = DBConnection.getConnection()) {
+            // Insert Payment
+            String sqlPay = "INSERT INTO payments(policy_no, customer_id, amount) VALUES(?,?,?)";
+            PreparedStatement psPay = conn.prepareStatement(sqlPay);
+            psPay.setInt(1, policyNo);
+            psPay.setInt(2, customerId);
+            psPay.setDouble(3, amount);
+            psPay.executeUpdate();
+
+            // Update Policy to Active
+            String sqlUpdate = "UPDATE policies SET status='Active' WHERE policy_no=?";
+            PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate);
+            psUpdate.setInt(1, policyNo);
+            psUpdate.executeUpdate();
+
+        } catch (Exception e) { e.printStackTrace(); }
+
+        // Confirmation page
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<html><body style='text-align:center;padding:100px;font-family:sans-serif;'>");
+        out.println("<h2>✅ Payment Successful! Your policy is now Active.</h2>");
+        out.println("<a href='customer-dashboard.html' style='display:inline-block;margin-top:20px;padding:10px 20px;background:#3b82f6;color:white;text-decoration:none;border-radius:8px;'>Go to Dashboard</a>");
+        out.println("</body></html>");
+    }
+}

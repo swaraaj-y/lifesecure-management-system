@@ -1,0 +1,46 @@
+package com.lifesecure.servlet;
+
+import com.lifesecure.util.DBConnection;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class UpdatePolicyStatusServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+
+        // Check if agent is logged in
+        if (session == null || session.getAttribute("agentId") == null) {
+            response.sendRedirect("agent-login.html");
+            return;
+        }
+
+        int policyId = Integer.parseInt(request.getParameter("policyId"));
+        String action = request.getParameter("action"); // accept or reject
+
+        String newStatus = "";
+        if (action.equalsIgnoreCase("accept")) {
+            newStatus = "Pending Admin Approval"; // Move to admin for final approval
+        } else if (action.equalsIgnoreCase("reject")) {
+            newStatus = "Rejected by Agent";
+        }
+
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "UPDATE policies SET status=? WHERE policy_no=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, newStatus);
+            ps.setInt(2, policyId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Redirect back to agent dashboard
+        response.sendRedirect("agentDashboard");
+    }
+}

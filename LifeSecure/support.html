@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Support | LifeSecure</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(rgba(10, 61, 98, 0.9), rgba(10, 61, 98, 0.9)), url('cssbgtopsection.jpeg');
+      background-size: cover;
+      color: white;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      margin-bottom: 25px;
+    }
+
+    .section h3 {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      margin-left: 20px;
+    }
+
+    li {
+      margin: 8px 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      background: #27ae60;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #2ecc71;
+    }
+
+    .success {
+      text-align: center;
+      margin-top: 10px;
+      color: #2ecc71;
+      font-weight: bold;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: white;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>🛠️ Customer Support</h1>
+
+    <!-- Contact Info -->
+    <div class="section">
+      <h3>📞 Contact Us</h3>
+      <ul>
+        <li><b>Helpline:</b> 1800-123-456</li>
+        <li><b>Email:</b> support@lifesecure.com</li>
+        <li><b>Working Hours:</b> Mon–Sat, 9 AM – 6 PM</li>
+      </ul>
+    </div>
+
+    <!-- FAQ -->
+    <div class="section">
+      <h3>❓ Frequently Asked Questions</h3>
+      <ul>
+        <li><b>How to pay premium?</b> → Go to dashboard → Pay Premium.</li>
+        <li><b>How to apply for policy?</b> → Click Apply New Policy.</li>
+        <li><b>How to claim insurance?</b> → Contact support with policy details.</li>
+      </ul>
+    </div>
+
+    <!-- Complaint Form -->
+    <div class="section">
+      <h3>📝 Submit a Complaint</h3>
+
+      <form action="submitSupport" method="POST">
+
+        <label>Policy Number</label>
+        <input type="text" name="policyNo" required placeholder="Enter Policy Number">
+
+        <label>Your Name</label>
+        <input type="text" name="name" required placeholder="Enter Name">
+
+        <label>Your Issue</label>
+        <textarea name="issue" rows="4" required placeholder="Describe your problem"></textarea>
+
+        <button type="submit">Submit Complaint</button>
+      </form>
+
+    </div>
+
+    <a href="customer-dashboard.html" class="back">⬅ Back to Dashboard</a>
+  </div>
+
+  <script>
+    // URL param check for success msg
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("msg") === "success") {
+      document.write("<div class='success'>✅ Complaint submitted successfully to the Admin!</div>");
+    }
+  </script>
+
+
+</body>
+
+</html>

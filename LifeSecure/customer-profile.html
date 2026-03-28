@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Customer Profile | LifeSecure</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:"Segoe UI",sans-serif;
+  background:linear-gradient(rgba(10,61,98,0.92),rgba(10,61,98,0.92)),
+  url('images/cssbgtopsection.jpeg');
+  background-size:cover;
+  color:white;
+}
+
+/* MAIN CONTAINER */
+.container{
+  max-width:900px;
+  margin:40px auto;
+  padding:20px;
+}
+
+/* HEADER */
+.header{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.header h2{
+  font-size:28px;
+  letter-spacing:1px;
+}
+
+/* PROFILE CARD */
+.profile-card{
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(12px);
+  border-radius:20px;
+  padding:25px;
+  margin-bottom:25px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+/* PROFILE GRID */
+.profile-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px 40px;
+}
+
+.profile-item{
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,0.25);
+}
+
+.profile-item span{
+  display:block;
+  font-size:13px;
+  opacity:0.8;
+}
+
+.profile-item strong{
+  font-size:16px;
+}
+
+/* SUMMARY CARDS */
+.summary{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+  gap:20px;
+}
+
+.summary-card{
+  background:rgba(255,255,255,0.18);
+  backdrop-filter:blur(10px);
+  border-radius:18px;
+  padding:20px;
+  text-align:center;
+  transition:0.3s;
+}
+
+.summary-card:hover{
+  transform:translateY(-8px) scale(1.05);
+  background:rgba(255,255,255,0.28);
+}
+
+.summary-card h3{
+  font-size:26px;
+  margin-bottom:5px;
+}
+
+.summary-card p{
+  font-size:14px;
+  opacity:0.85;
+}
+
+/* STATUS BADGE */
+.badge{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:8px;
+  font-size:12px;
+  margin-top:5px;
+}
+
+.active{ background:#27ae60; }
+.pending{ background:#f39c12; }
+.inactive{ background:#c0392b; }
+
+/* BUTTON */
+.back-btn{
+  display:block;
+  text-align:center;
+  margin-top:25px;
+  padding:12px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.2);
+  text-decoration:none;
+  color:white;
+  transition:0.3s;
+}
+
+.back-btn:hover{
+  background:rgba(255,255,255,0.35);
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  margin-top:25px;
+  opacity:0.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h2>👤 Customer Profile</h2>
+  </div>
+
+  <!-- PROFILE DETAILS -->
+  <div class="profile-card">
+    <div class="profile-grid">
+
+      <!-- Dynamic values will come from servlet -->
+      <div class="profile-item">
+        <span>Full Name</span>
+        <strong id="name">Loading...</strong>
+      </div>
+
+      <div class="profile-item">
+        <span>Email</span>
+        <strong id="email">Loading...</strong>
+      </div>
+
+      <div class="profile-item">
+        <span>Phone</span>
+        <strong id="phone">Loading...</strong>
+      </div>
+
+      <div class="profile-item">
+        <span>Address</span>
+        <strong id="address">Loading...</strong>
+      </div>
+
+      <div class="profile-item">
+        <span>Date of Birth</span>
+        <strong id="dob">Loading...</strong>
+      </div>
+
+      <div class="profile-item">
+        <span>Member Since</span>
+        <strong id="memberSince">Loading...</strong>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- POLICY SUMMARY -->
+  <div class="summary">
+
+    <div class="summary-card">
+      <h3 id="totalPolicies">0</h3>
+      <p>Total Policies</p>
+    </div>
+
+    <div class="summary-card">
+      <h3 id="activePolicies">0</h3>
+      <p>Active Policies</p>
+      <span class="badge active">Active</span>
+    </div>
+
+    <div class="summary-card">
+      <h3 id="pendingPolicies">0</h3>
+      <p>Pending Approval</p>
+      <span class="badge pending">Pending</span>
+    </div>
+
+    <div class="summary-card">
+      <h3 id="lastPayment">₹0</h3>
+      <p>Last Payment</p>
+      <span class="badge active">Paid</span>
+    </div>
+
+  </div>
+
+  <a href="customer-dashboard.html" class="back-btn">⬅ Back to Dashboard</a>
+
+  <footer>
+    © 2026 LifeSecure Insurance • Secure Your Future
+  </footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+package com.lifesecure.servlet;
+
+import com.lifesecure.util.DBConnection;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class AdminUpdatePolicyServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("adminUser") == null) {
+            response.sendRedirect("admin-login.html");
+            return;
+        }
+
+        int policyId = Integer.parseInt(request.getParameter("policyId"));
+        String action = request.getParameter("action"); // "approve" or "reject"
+
+        String status = action.equals("approve") ? "Approved / Pending Payment" : "Rejected";
+
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "UPDATE policies SET status=? WHERE policy_no=?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, status);
+            pst.setInt(2, policyId);
+            pst.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect("adminDashboard");
+    }
+}
