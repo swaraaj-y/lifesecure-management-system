@@ -1,0 +1,66 @@
+How to run the LifeSecure Project
+
+Prerequisites
+
+Before starting, ensure you have the following installed on your computer:
+
+1. Java Development Kit (JDK): JDK 8 or newer.
+2. PostgreSQL Server: (Important: Use PostgreSQL, not MySQL).
+3. Apache Tomcat: (Version 9 is standard for this project).
+
+Step 1: Set up the PostgreSQL Database
+Your application is specifically looking for a database named "lifesecure", a user named "postgres", and the password "1234". 
+
+Here is how to set it up:
+
+1. Open pgAdmin (the tool that comes with PostgreSQL) or the psql command line.
+2. Log in using the default "postgres" user.
+3. During PostgreSQL installation, if you were asked to set a password for the "postgres" user, you must set it to "1234". 
+   (Alternatively, if your password is different, you'll need to change the Java code—see Step 2).
+4. Create a new database named exactly: lifesecure
+5. Run the SQL Script:
+   - Select the "lifesecure" database.
+   - Open the Query Tool (in pgAdmin) or use the command line.
+   - Open the file named "setup_db.sql" (located in the main project folder).
+   - Copy all the contents of "setup_db.sql" and execute it to create the necessary tables.
+
+Step 2: Database Credentials in the Code 
+
+Your application's database details are hardcoded in LifeSecure/WEB-INF/classes/com/lifesecure/util/DBConnection.java. 
+
+If you installed PostgreSQL with a different password than "1234", you MUST edit this file.
+
+1. Open LifeSecure/WEB-INF/classes/com/lifesecure/util/DBConnection.java in any text editor.
+2. Look for these lines:
+   con = DriverManager.getConnection(
+       "jdbc:postgresql://localhost:5432/lifesecure",
+       "postgres",
+       "1234"
+   );
+3. Change "1234" to the exact password you chose during the PostgreSQL installation.
+4. Keep the username as "postgres" and the database name as "lifesecure" unless you changed those too.
+5. Save the file.
+(Note: Because this is a .java file, if you change the code, you will technically need to re-compile the Java class into a .class file using your IDE like Eclipse or VS Code before running it inside Tomcat).
+
+Step 3: Set up Apache Tomcat and Deploy
+
+I see the project is set up as an unzipped folder named LifeSecure.
+1. Download Apache Tomcat 9 (a .zip or .tar.gz bundle) and extract it anywhere on your computer (e.g., C:\apache-tomcat-9.0).
+2. Open the Tomcat folder, and go into the webapps folder (C:\apache-tomcat-9.0\webapps).
+3. Copy the entire LifeSecure folder that was sent to you.
+4. Paste the LifeSecure folder directly into the Tomcat webapps folder.
+
+Step 4: Start Tomcat
+
+1. Go back to the main Tomcat directory (C:\apache-tomcat-9.0).
+2. Open the bin folder.
+3. Find the file named startup.bat (on Windows) or startup.sh (on Mac/Linux).
+4. Double-click startup.bat. A black terminal window will open and begin running the server. Do not close this window!
+
+Step 5: Access the Application
+
+1. Open up Google Chrome or Firefox.
+2. In the URL bar, type exactly: 
+   http://localhost:8080/LifeSecure
+   (Ensure the 'L' and 'S' are capitalized, matching the folder name exactly).
+3. The project should now load!
